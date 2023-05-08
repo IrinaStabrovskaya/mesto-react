@@ -21,7 +21,7 @@
 @import url(./blocks/photos/__image/photos__image.css);
 @import url(./blocks/photos/__description/photos__description.css);
 @import url(./blocks/photos/__title/photos__title.css);
-@import url(./blocks/photos/__like/photos__like.css); 
+@import url(./blocks/photos/__like/photos__like.css);
 @import url(./blocks/photos/__like/_with-counter/photos__like_with-counter.css);
 @import url(./blocks/photos/__heart-btn/photos__heart-btn.css);
 @import url(./blocks/photos/__heart-btn/_active/photos__heart-btn_active.css);
