@@ -37,8 +37,7 @@ const App = () => {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setIsImagePopupOpen(false);
-    setSelectedCard(false);
+    setIsImagePopupOpen(false);    
   };
 
   return (

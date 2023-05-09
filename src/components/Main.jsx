@@ -3,9 +3,9 @@ import { api } from "./../utils/Api";
 import Card from "./Card";
 
 function Main(props) {  
-  const [userName, setUserName] = useState();
-  const [userDescription, setUserDescription] = useState();
-  const [userAvatar, setUserAvatar] = useState();
+  const [userName, setUserName] = useState("");
+  const [userDescription, setUserDescription] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -30,6 +30,7 @@ function Main(props) {
       likes={card.likes}
       onCardClick={props.onCardClick}
     />
+    
   ));
 
   return (
