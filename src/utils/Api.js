@@ -36,8 +36,7 @@ export class Api {
     }).then((res) => this._checkResponse(res));
   }
   //замена аватара пользователя
-  setAvatar(avatar) {
-    console.log(avatar);
+  setAvatar(avatar) {    
     return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,

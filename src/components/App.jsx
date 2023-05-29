@@ -34,8 +34,7 @@ const App = () => {
 
   const handleCardClick = (cardData) => {
     setIsImagePopupOpen(true);
-    setSelectedCard(cardData);
-    console.log(cardData);
+    setSelectedCard(cardData);    
   };
 
   const closeAllPopups = () => {
