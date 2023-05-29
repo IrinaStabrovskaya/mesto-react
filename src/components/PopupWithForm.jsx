@@ -1,6 +1,6 @@
 import React from "react";
 
-function PopupWithForm(props) {
+const PopupWithForm = (props) => {
   return (
     <div
       className={`pop-up pop-up_type_${props.name} ${
@@ -21,6 +21,7 @@ function PopupWithForm(props) {
 
         <form
           className={`pop-up__form name=${props.name} action="#" noValidate`}
+          onSubmit={props.onSubmit}
         >
           {props.children}
           <button
@@ -34,6 +35,6 @@ function PopupWithForm(props) {
       </div>
     </div>
   );
-}
+};
 
 export default PopupWithForm;

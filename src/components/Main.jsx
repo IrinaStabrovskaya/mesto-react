@@ -1,36 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { api } from "./../utils/Api";
+import React, { useContext } from "react";
 import Card from "./Card";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Main(props) {  
-  const [userName, setUserName] = useState("");
-  const [userDescription, setUserDescription] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
-  const [cards, setCards] = useState([]);
+function Main(props) {
+  const currentUser = useContext(CurrentUserContext);
 
-  useEffect(() => {
-    api
-      .getAllInitialData()
-      .then((data) => {
-        const [profile, cards] = data;
-
-        setUserName(profile.name);
-        setUserDescription(profile.about);
-        setUserAvatar(profile.avatar);
-        setCards(cards);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-  const initialCards = cards.map((card) => (
+  const initialCards = props.cards.map((card) => (
     <Card
       key={card._id}
       name={card.name}
       link={card.link}
       likes={card.likes}
+      cardId={card._id}
+      ownerId={card.owner._id}
       onCardClick={props.onCardClick}
+      onCardLike={props.onCardLike}
+      onCardDelete={props.onCardDelete}
     />
-    
   ));
 
   return (
@@ -39,14 +25,14 @@ function Main(props) {
         <button className="profile__avatar-btn" onClick={props.onEditAvatar}>
           <img
             className="profile__avatar"
-            src={userAvatar}
+            src={currentUser.avatar}
             alt="аватар пользователя"
           />
         </button>
         <div className="profile__info">
           <div className="profile__description">
-            <h1 className="profile__title">{userName}</h1>
-            <p className="profile__subtitle">{userDescription}</p>
+            <h1 className="profile__title">{currentUser.name}</h1>
+            <p className="profile__subtitle">{currentUser.about}</p>
           </div>
           <button
             className="profile__edit-btn btn-hover"

@@ -1,20 +1,51 @@
-import React from "react";
+import React, { useContext } from "react";
 
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 //в этом компоненте использован дополнительный функционал
 // контейнера лайков и отображения количества лайков
 //т.е. если лайков нет, то их количество не отображается, если есть, то все отображается по ТЗ.
-//Этот функционал был применен в ПР9, поэтому реализован и этой работе.
+//Этот функционал был применен в ПР9, поэтому реализован и этой работе.  onClick={handleDeleteClick}
 
-const Card = ({ link, name, likes, onCardClick }) => {
+const Card = ({
+  link,
+  name,
+  likes,
+  cardId,
+  ownerId,
+  onCardClick,
+  onCardLike,
+  onCardDelete,
+}) => {
+  const currentUser = useContext(CurrentUserContext);
   const hasLikes = likes.length !== 0;
+  const isOwn = ownerId === currentUser._id;
+  const isLiked = likes.some((i) => i._id === currentUser._id);
+  const cardLikeButtonClassName = `photos__heart-btn ${
+    isLiked && "photos__heart-btn_active"
+  }`;
 
   function handleClick() {
     onCardClick({ link, name });
   }
 
+  function handleLikeClick() {
+    onCardLike({ cardId, likes });
+  }
+
+  function handleDeleteClick() {
+    onCardDelete({ cardId });
+    console.log(cardId);
+  }
+
   return (
     <li className="photos__element">
-      <button className="photos__delete-btn btn-hover" type="button"></button>
+      {isOwn && (
+        <button
+          className="photos__delete-btn btn-hover"
+          type="button"
+          onClick={handleDeleteClick}
+        ></button>
+      )}
       <img
         className="photos__image"
         src={link}
@@ -29,8 +60,9 @@ const Card = ({ link, name, likes, onCardClick }) => {
           }`}
         >
           <button
-            className="photos__heart-btn btn-hover"
+            className={cardLikeButtonClassName}
             type="button"
+            onClick={handleLikeClick}
           ></button>
           <div className="photos__like-counter">
             {!hasLikes ? "" : `${likes.length}`}

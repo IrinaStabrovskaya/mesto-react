@@ -1,11 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import PopupWithForm from "../PopupWithForm";
 
 const PopupAddCard = (props) => {
+  const [cardName, setCardName] = useState("");
+  const [cardLink, setCardLink] = useState("");
+
+  function handleChangeCardName(e) {
+    setCardName(e.target.value);
+  }
+
+  function handleChangeCardLink(e) {
+    setCardLink(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    props.onAddNewCard({
+      name: cardName,
+      link: cardLink,
+    });
+
+    setCardName("");
+    setCardLink("");
+  }
+
   return (
     <PopupWithForm
       isOpen={props.isOpen}
       onClose={props.onClose}
+      onSubmit={handleSubmit}
       name="create-card"
       title="Новое место"
       text="Создать"
@@ -15,6 +39,8 @@ const PopupAddCard = (props) => {
         required
         type="text"
         name="name"
+        value={cardName}
+        onChange={handleChangeCardName}
         placeholder="Название"
         minLength="2"
         maxLength="30"
@@ -27,6 +53,8 @@ const PopupAddCard = (props) => {
         required
         type="url"
         name="link"
+        value={cardLink}
+        onChange={handleChangeCardLink}
         placeholder="Ссылка на картинку"
       />
 

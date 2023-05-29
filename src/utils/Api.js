@@ -42,12 +42,12 @@ export class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: avatar.link,
+        avatar: avatar.avatar,
       }),
     }).then((res) => this._checkResponse(res));
   }
   //получение начальных карточек с сервера
-  _getInitialsCards() {
+  getInitialsCards() {
     return fetch(`${this._url}/cards`, {
       method: "GET",
       headers: this._headers,
@@ -56,7 +56,7 @@ export class Api {
 
   //получение всех нужных данных для отрисовки первоначального состояния страницы
   getAllInitialData() {
-    return Promise.all([this.getInfo(), this._getInitialsCards()]);
+    return Promise.all([this.getInfo(), this.getInitialsCards()]);
   }
 
   //добавить карточку
@@ -86,7 +86,6 @@ export class Api {
       headers: this._headers,
       body: JSON.stringify({
         cardId: cardId,
-        likes: cardId._likes,
       }),
     }).then((res) => this._checkResponse(res));
   }
@@ -97,13 +96,16 @@ export class Api {
       method: "DELETE",
       headers: this._headers,
       body: JSON.stringify({
-        cardId: cardId,
-        likes: cardId._likes,
+        cardId: cardId,      
       }),
     }).then((res) => this._checkResponse(res));
   }
-}
 
+ //запрос на удаление или постановку лайка, с проверкой наличия моего лайка
+  changeLikeCardStatus(cardId, isLiked) {    
+    return isLiked ? this.isLikeCard(cardId) : this.disLikeCard(cardId);
+  }
+}
 export const api = new Api({
   url: "https://mesto.nomoreparties.co/v1/cohort-62",
   headers: {
