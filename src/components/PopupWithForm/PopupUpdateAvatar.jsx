@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import PopupWithForm from "../PopupWithForm";
 
 const PopupUpdateAvatar = (props) => {
@@ -9,8 +9,11 @@ const PopupUpdateAvatar = (props) => {
     props.onUpdateAvatar({
       avatar: inputLink.current.value,
     });
-    inputLink.current.value = "";
   }
+
+  useEffect(() => {
+    inputLink.current.value = "";
+  }, [props.isOpen]);
 
   return (
     <PopupWithForm
@@ -19,7 +22,7 @@ const PopupUpdateAvatar = (props) => {
       name="avatar"
       nameContainer="avatar"
       title="Обновить аватар"
-      text="Сохранить"
+      text={props.isLoading ? "Сохранение..." : "Сохранить"}
       onSubmit={handleSubmit}
     >
       <input

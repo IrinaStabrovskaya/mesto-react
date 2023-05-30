@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PopupWithForm from "../PopupWithForm";
 
 const PopupAddCard = (props) => {
@@ -20,10 +20,12 @@ const PopupAddCard = (props) => {
       name: cardName,
       link: cardLink,
     });
+  }
 
+  useEffect(() => {
     setCardName("");
     setCardLink("");
-  }
+  }, [props.isOpen]);
 
   return (
     <PopupWithForm
@@ -32,14 +34,14 @@ const PopupAddCard = (props) => {
       onSubmit={handleSubmit}
       name="create-card"
       title="Новое место"
-      text="Создать"
+      text={props.isLoading ? "Сохранение..." : "Создать"}
     >
       <input
         className="pop-up__form-input pop-up__form-input_type_place-title"
         required
         type="text"
         name="name"
-        value={cardName}
+        value={cardName || ""}
         onChange={handleChangeCardName}
         placeholder="Название"
         minLength="2"
@@ -53,7 +55,7 @@ const PopupAddCard = (props) => {
         required
         type="url"
         name="link"
-        value={cardLink}
+        value={cardLink || ""}
         onChange={handleChangeCardLink}
         placeholder="Ссылка на картинку"
       />

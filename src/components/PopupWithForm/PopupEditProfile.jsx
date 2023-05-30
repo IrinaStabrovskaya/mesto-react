@@ -35,14 +35,14 @@ const PopupEditProfile = (props) => {
       onSubmit={handleSubmit}
       name="edit"
       title="Редактировать профиль"
-      text="Сохранить"
+      text={props.isLoading ? "Сохранение..." : "Сохранить"}
     >
       <input
         className="pop-up__form-input pop-up__form-input_type_name"
         required
         type="text"
         name="name"
-        value={nameUser}
+        value={nameUser || ""}
         onChange={handleChangeName}
         placeholder="Имя"
         minLength="2"
@@ -56,7 +56,7 @@ const PopupEditProfile = (props) => {
         required
         type="text"
         name="about"
-        value={description}
+        value={description || ""}
         onChange={handleChangeDescription}
         placeholder="О себе"
         minLength="2"
